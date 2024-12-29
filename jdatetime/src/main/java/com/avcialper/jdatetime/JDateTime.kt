@@ -32,22 +32,22 @@ abstract class JDateTime {
     }
 
     /**
-     * Current date as a string in the format `dd.MM.yyyy`.
+     * Gets the current date as a string in the format `dd.MM.yyyy`.
      */
     abstract val date: String
 
     /**
-     * Current time as a string in the format `HH:mm:ss`.
+     * Gets the current time as a string in the format `HH:mm:ss`.
      */
     abstract val time: String
 
     /**
-     * Current year.
+     * Gets the current year field.
      */
     abstract val year: Int
 
     /**
-     * Current month index.
+     * Gets the current month-of-year field.
      *
      * 0 - `JANUARY`
      *
@@ -56,37 +56,37 @@ abstract class JDateTime {
     abstract val month: Int
 
     /**
-     * Current day of the month. Start day `1`.
+     * Gets the current day-of-month field. Start day `1`.
      */
     abstract val day: Int
 
     /**
-     * Current hour.
+     * Gets the current hour-of-day field.
      */
     abstract val hour: Int
 
     /**
-     * Current minute.
+     * Gets the current minute-of-hour field.
      */
     abstract val minute: Int
 
     /**
-     * Current second.
+     * Gets the current second-of-minute field.
      */
     abstract val second: Int
 
     /**
-     * Current date as a long value representing the number of days since January 1, 1970.
+     * Gets the current date as a long value representing the number of days since January 1, 1970.
      */
     abstract val epochDay: Long
 
     /**
-     * Current time in seconds.
+     * Gets the time as seconds of day, from 0 to 24 * 60 * 60 - 1.
      */
     abstract val timeInSecond: Int
 
     /**
-     * Current day of the week.
+     * Gets the current day-of-week field.
      *
      * 0 - `MONDAY`
      *
@@ -95,32 +95,32 @@ abstract class JDateTime {
     abstract val dayOfWeek: Int
 
     /**
-     * Current day of the month. Start day `1`.
+     * Gets the current day-of-month field. Start day `1`.
      */
     abstract val dayOfMonth: Int
 
     /**
-     * Current day of the year. Start day `1`.
+     * Gets the current day-of-year field. Start day `1`.
      */
     abstract val dayOfYear: Int
 
     /**
-     * Current day name as a [JDay].
+     * Gets the current day name field, which is an enum [JDay].
      */
     abstract val dayName: JDay
 
     /**
-     * Current week of the month.
+     * Gets the current week-of-month field.
      */
     abstract val weekOfMonth: Int
 
     /**
-     * Current week of the year.
+     * Gets the current week-of-year field.
      */
     abstract val weekOfYear: Int
 
     /**
-     * Current month as a [JMonth].
+     * Gets the current month name field, which is an enum [JMonth].
      */
     abstract val monthName: JMonth
 
@@ -130,18 +130,18 @@ abstract class JDateTime {
     abstract val isLeapYear: Boolean
 
     /**
-     * Get all days of the month as a list of [JDate].
-     * @param year The year of the month.
-     * @param month The month of the year.
+     * Gets all days of the month-of-year as a list of [JDate].
+     * @param year Desired year.
+     * @param month The month-of-year. (0 - 11)
      * @return A list of [JDate] objects.
      */
     abstract fun getAllDaysOfMonth(year: Int, month: Int): List<JDayOfMonth>
 
     /**
-     * Format current date.
+     * Formats current date using a formatter.
      *
      *  @throws UnsupportedOperationException
-     * If the device is running on Android 8 (API 26) or higher, use the `format(formatter: SimpleDateFormat)` function.
+     * If the device is running below Android 8 (API 26), use the `format(formatter: SimpleDateFormat)` function.
      *
      * @param formatter [DateTimeFormatter]
      * @return Formatted date.
@@ -150,17 +150,17 @@ abstract class JDateTime {
     abstract fun format(formatter: DateTimeFormatter): String
 
     /**
-     * Format current date.
+     * Formats current date using a formatter.
      * @param formatter [SimpleDateFormat]
      * @return Formatted date.
      */
     abstract fun format(formatter: SimpleDateFormat): String
 
     /**
-     * Format the given date.
+     * Formats the given date using a formatter.
      *
      * @throws UnsupportedOperationException
-     * If the device is running on Android 8 (API 26) or higher, use the `formatDate(formatter: SimpleDateFormat, date: Calendar)` function.
+     * If the device is running below Android 8 (API 26), use the `formatDate(formatter: SimpleDateFormat, date: Calendar)` function.
      *
      * @param formatter [DateTimeFormatter]
      * @param date [LocalDate] The date to format.
@@ -170,7 +170,7 @@ abstract class JDateTime {
     abstract fun formatDate(formatter: DateTimeFormatter, date: LocalDate): String
 
     /**
-     * Format the given date.
+     * Formats the given date using a formatter.
      * @param formatter [SimpleDateFormat]
      * @param date [Calendar] The date to format.
      * @return Formatted date.
@@ -178,10 +178,10 @@ abstract class JDateTime {
     abstract fun formatDate(formatter: SimpleDateFormat, date: Calendar): String
 
     /**
-     * Format current time.
+     * Formats current time using a formatter.
      *
      * @throws UnsupportedOperationException
-     * If the device is running on Android 8 (API 26) or higher, use the `formatTime(formatter: SimpleDateFormat)` function.
+     * If the device is running below Android 8 (API 26), use the `formatTime(formatter: SimpleDateFormat)` function.
      *
      * @param formatter [DateTimeFormatter]
      * @return Formatted time.
@@ -190,7 +190,7 @@ abstract class JDateTime {
     abstract fun formatTime(formatter: DateTimeFormatter): String
 
     /**
-     * Format current time.
+     * Formats current time using a formatter.
      * @param formatter [SimpleDateFormat]
      * @return Formatted time.
      */
@@ -200,7 +200,7 @@ abstract class JDateTime {
      * Calculates the difference between two dates.
      *
      * @throws UnsupportedOperationException
-     * If the device is running on Android 8 (API 26) or higher, use the `findDateDifference(fromDate: Calendar, toDate: Calendar)` function.
+     * If the device is running below Android 8 (API 26), use the `findDateDifference(fromDate: Calendar, toDate: Calendar)` function.
      *
      * @param fromDate [LocalDate] Start date.
      * @param toDate [LocalDate] End date.
@@ -220,7 +220,7 @@ abstract class JDateTime {
      * Calculates the difference between two dates.
      *
      * @throws UnsupportedOperationException
-     * If the device is running on Android 8 (API 26) or higher, use the `findDayDifference(fromDate: Calendar, toDate: Calendar)` function.
+     * If the device is running below Android 8 (API 26), use the `findDayDifference(fromDate: Calendar, toDate: Calendar)` function.
      *
      * @param fromDate [LocalDate] Start date.
      * @param toDate [LocalDate] End date.
@@ -229,7 +229,7 @@ abstract class JDateTime {
     abstract fun findDayDifference(fromDate: LocalDate, toDate: LocalDate): Long
 
     /**
-     * Calculates the difference between two dates.
+     * Calculates the day difference between two dates.
      * @param fromDate [Calendar] Start date.
      * @param toDate [Calendar] End date.
      */
