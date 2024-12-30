@@ -5,7 +5,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.avcialper.jdatetime.datetime.JCalendar
 import com.avcialper.jdatetime.datetime.JLocalDateTime
-import com.avcialper.jdatetime.model.JDate
 import com.avcialper.jdatetime.model.JDateDifference
 import com.avcialper.jdatetime.model.JDayOfMonth
 import com.avcialper.jdatetime.util.JDay
@@ -18,11 +17,15 @@ abstract class JDateTime {
 
     companion object {
 
+        // Determines if the device's API level is Android 8 (API 26) or higher
+        val isDeviceEqualOrHigherO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+
+        // Provides an instance of JDateTime based on the device's API level
         val instance: JDateTime
             get() = getJDateTime()
 
         private fun getJDateTime(): JDateTime {
-            val isDeviceEqualOrHigherO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+            // Returns JLocalDateTime for API 26+, otherwise JCalendar
             return if (isDeviceEqualOrHigherO)
                 JLocalDateTime()
             else
@@ -31,217 +34,192 @@ abstract class JDateTime {
 
     }
 
-    /**
-     * Gets the current date as a string in the format `dd.MM.yyyy`.
-     */
+    /** Current date as a string in the format "dd.MM.yyyy" */
     abstract val date: String
 
-    /**
-     * Gets the current time as a string in the format `HH:mm:ss`.
-     */
+    /** Current time as a string in the format "HH:mm:ss" */
     abstract val time: String
 
-    /**
-     * Gets the current year field.
-     */
+    /** Current year */
     abstract val year: Int
 
-    /**
-     * Gets the current month-of-year field.
-     *
-     * 0 - `JANUARY`
-     *
-     * 11 - `DECEMBER`
-     */
+    /** Current month (0 for January to 11 for December) */
     abstract val month: Int
 
-    /**
-     * Gets the current day-of-month field. Start day `1`.
-     */
+    /** Current day of the month, starting from 1 */
     abstract val day: Int
 
-    /**
-     * Gets the current hour-of-day field.
-     */
+    /** Current hour of the day */
     abstract val hour: Int
 
-    /**
-     * Gets the current minute-of-hour field.
-     */
+    /** Current minute */
     abstract val minute: Int
 
-    /**
-     * Gets the current second-of-minute field.
-     */
+    /** Current second */
     abstract val second: Int
 
-    /**
-     * Gets the current date as a long value representing the number of days since January 1, 1970.
-     */
+    /** Number of days since January 1, 1970 */
     abstract val epochDay: Long
 
-    /**
-     * Gets the time as seconds of day, from 0 to 24 * 60 * 60 - 1.
-     */
+    /** Time of day in seconds */
     abstract val timeInSecond: Int
 
-    /**
-     * Gets the current day-of-week field.
-     *
-     * 0 - `MONDAY`
-     *
-     * 6 - `SUNDAY`
-     */
+    /** Current day of the week (0 for Monday to 6 for Sunday) */
     abstract val dayOfWeek: Int
 
-    /**
-     * Gets the current day-of-month field. Start day `1`.
-     */
+    /** Current day of the month */
     abstract val dayOfMonth: Int
 
-    /**
-     * Gets the current day-of-year field. Start day `1`.
-     */
+    /** Current day of the year */
     abstract val dayOfYear: Int
 
-    /**
-     * Gets the current day name field, which is an enum [JDay].
-     */
+    /** Day name as [JDay] enum */
     abstract val dayName: JDay
 
-    /**
-     * Gets the current week-of-month field.
-     */
+    /** Week of the month */
     abstract val weekOfMonth: Int
 
-    /**
-     * Gets the current week-of-year field.
-     */
+    /** Week of the year */
     abstract val weekOfYear: Int
 
-    /**
-     * Gets the current month name field, which is an enum [JMonth].
-     */
+    /** Month name as [JMonth] enum */
     abstract val monthName: JMonth
 
-    /**
-     * Check if the current year is a leap year.
-     */
+    /** True if the current year is a leap year */
     abstract val isLeapYear: Boolean
 
     /**
-     * Gets all days of the month-of-year as a list of [JDate].
-     * @param year Desired year.
-     * @param month The month-of-year. (0 - 11)
-     * @return A list of [JDate] objects.
+     * Returns all days of the given month as a list of [JDayOfMonth].
+     * @param year Desired year
+     * @param month Month of the year (0 for January to 11 for December)
      */
     abstract fun getAllDaysOfMonth(year: Int, month: Int): List<JDayOfMonth>
 
     /**
-     * Formats current date using a formatter.
-     *
-     *  @throws UnsupportedOperationException
-     * If the device is running below Android 8 (API 26), use the `format(formatter: SimpleDateFormat)` function.
-     *
-     * @param formatter [DateTimeFormatter]
-     * @return Formatted date.
+     * Formats the current date using a [DateTimeFormatter].
+     * Throws an exception for API levels below 26.
+     * @param formatter DateTimeFormatter instance
      */
     @RequiresApi(Build.VERSION_CODES.O)
     abstract fun format(formatter: DateTimeFormatter): String
 
     /**
-     * Formats current date using a formatter.
-     * @param formatter [SimpleDateFormat]
-     * @return Formatted date.
+     * Formats the current date using a [SimpleDateFormat].
+     * @param formatter SimpleDateFormat instance
      */
     abstract fun format(formatter: SimpleDateFormat): String
 
     /**
-     * Formats the given date using a formatter.
-     *
-     * @throws UnsupportedOperationException
-     * If the device is running below Android 8 (API 26), use the `formatDate(formatter: SimpleDateFormat, date: Calendar)` function.
-     *
-     * @param formatter [DateTimeFormatter]
-     * @param date [LocalDate] The date to format.
-     * @return Formatted date.
+     * Formats a given date using a [DateTimeFormatter].
+     * Throws an exception for API levels below 26.
+     * @param formatter DateTimeFormatter instance
+     * @param date LocalDate instance to format
      */
     @RequiresApi(Build.VERSION_CODES.O)
     abstract fun formatDate(formatter: DateTimeFormatter, date: LocalDate): String
 
     /**
-     * Formats the given date using a formatter.
-     * @param formatter [SimpleDateFormat]
-     * @param date [Calendar] The date to format.
-     * @return Formatted date.
+     * Formats a given date using a [SimpleDateFormat].
+     * @param formatter SimpleDateFormat instance
+     * @param date Calendar instance to format
      */
     abstract fun formatDate(formatter: SimpleDateFormat, date: Calendar): String
 
     /**
-     * Formats current time using a formatter.
-     *
-     * @throws UnsupportedOperationException
-     * If the device is running below Android 8 (API 26), use the `formatTime(formatter: SimpleDateFormat)` function.
-     *
-     * @param formatter [DateTimeFormatter]
-     * @return Formatted time.
+     * Formats the current time using a [DateTimeFormatter].
+     * Throws an exception for API levels below 26.
+     * @param formatter DateTimeFormatter instance
      */
     @RequiresApi(Build.VERSION_CODES.O)
     abstract fun formatTime(formatter: DateTimeFormatter): String
 
     /**
-     * Formats current time using a formatter.
-     * @param formatter [SimpleDateFormat]
-     * @return Formatted time.
+     * Formats the current time using a [SimpleDateFormat].
+     * @param formatter SimpleDateFormat instance
      */
     abstract fun formatTime(formatter: SimpleDateFormat): String
 
     /**
-     * Calculates the difference between two dates.
-     *
-     * @throws UnsupportedOperationException
-     * If the device is running below Android 8 (API 26), use the `findDateDifference(fromDate: Calendar, toDate: Calendar)` function.
-     *
-     * @param fromDate [LocalDate] Start date.
-     * @param toDate [LocalDate] End date.
-     * @return [JDateDifference] object.
+     * Calculates the difference between two dates using [LocalDate].
+     * Throws an exception for API levels below 26.
+     * @param fromDate Start date
+     * @param toDate End date
      */
     @RequiresApi(Build.VERSION_CODES.O)
     abstract fun findDateDifference(fromDate: LocalDate, toDate: LocalDate): JDateDifference
 
     /**
-     * Calculates the difference between two dates.
-     * @param fromDate [Calendar] Start date.
-     * @param toDate [Calendar] End date.
+     * Calculates the difference between two dates using [Calendar].
+     * @param fromDate Start date
+     * @param toDate End date
      */
     abstract fun findDateDifference(fromDate: Calendar, toDate: Calendar): JDateDifference
 
     /**
-     * Calculates the difference between two dates.
-     *
-     * @throws UnsupportedOperationException
-     * If the device is running below Android 8 (API 26), use the `findDayDifference(fromDate: Calendar, toDate: Calendar)` function.
-     *
-     * @param fromDate [LocalDate] Start date.
-     * @param toDate [LocalDate] End date.
+     * Calculates the day difference between two dates using [LocalDate].
+     * Throws an exception for API levels below 26.
+     * @param fromDate Start date
+     * @param toDate End date
      */
     @RequiresApi(Build.VERSION_CODES.O)
     abstract fun findDayDifference(fromDate: LocalDate, toDate: LocalDate): Long
 
     /**
-     * Calculates the day difference between two dates.
-     * @param fromDate [Calendar] Start date.
-     * @param toDate [Calendar] End date.
+     * Calculates the day difference between two dates using [Calendar].
+     * @param fromDate Start date
+     * @param toDate End date
      */
     abstract fun findDayDifference(fromDate: Calendar, toDate: Calendar): Long
 
     /**
-     * Calculate the length of the given month.
+     * Returns the length of a given month.
+     * @param year Year of the month
+     * @param month Month (0 for January to 11 for December)
      */
     abstract fun lengthOfMonth(year: Int, month: Int): Int
 
     /**
-     * Check if the given year is a leap year.
+     * Calculates the epoch day of a given date.
+     * @param year Year of the date
+     * @param month Month (0 for January to 11 for December)
+     * @param dayOfMonth Day of the month (1-31)
+     */
+    abstract fun findEpochDay(year: Int, month: Int, dayOfMonth: Int): Long
+
+    /**
+     * Determines the day of the week for a given date.
+     * @param year Year of the date
+     * @param month Month (0 for January to 11 for December)
+     * @param dayOfMonth Day of the month (1-31)
+     */
+    abstract fun findDayOfWeek(year: Int, month: Int, dayOfMonth: Int): Int
+
+    /**
+     * Determines the day of the year for a given date.
+     * @param year Year of the date
+     * @param month Month (0 for January to 11 for December)
+     * @param dayOfMonth Day of the month (1-31)
+     */
+    abstract fun findDayOfYear(year: Int, month: Int, dayOfMonth: Int): Int
+
+    /**
+     * Determines the day name of a given date as [JDay].
+     * @param year Year of the date
+     * @param month Month (0 for January to 11 for December)
+     * @param dayOfMonth Day of the month (1-31)
+     */
+    abstract fun findDayName(year: Int, month: Int, dayOfMonth: Int): JDay
+
+    /**
+     * Converts a given time to total minutes.
+     * @param hour Hour component of the time
+     * @param minute Minute component of the time
+     */
+    abstract fun findTimeInMinute(hour: Int, minute: Int): Int
+
+    /**
+     * Determines if a given year is a leap year.
+     * @param year Year to check
      */
     fun isLeapYear(year: Int): Boolean =
         (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))

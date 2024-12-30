@@ -92,7 +92,7 @@ class JLocalDateTime : JDateTime() {
         var weekOfMonth: Int
 
         var currentDay = firstDay
-        while (!currentDay.isAfter(lastDay)) {
+        while (lastDay.isAfter(currentDay)) {
             date = currentDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
             dayOfMonth = currentDay.dayOfMonth
             dayOfWeek = currentDay.dayOfWeek.value - 1
@@ -163,7 +163,35 @@ class JLocalDateTime : JDateTime() {
     }
 
     override fun lengthOfMonth(year: Int, month: Int): Int {
-        val date = LocalDate.of(year, month + 1, 1)
+        val date = getGivenDate(year, month, 1)
         return date.lengthOfMonth()
+    }
+
+    override fun findEpochDay(year: Int, month: Int, dayOfMonth: Int): Long {
+        val date = getGivenDate(year, month, dayOfMonth)
+        return date.toEpochDay()
+    }
+
+    override fun findDayOfWeek(year: Int, month: Int, dayOfMonth: Int): Int {
+        val date = getGivenDate(year, month, dayOfMonth)
+        return date.dayOfWeek.ordinal
+    }
+
+    override fun findDayOfYear(year: Int, month: Int, dayOfMonth: Int): Int {
+        val date = getGivenDate(year, month, dayOfMonth)
+        return date.dayOfYear
+    }
+
+    override fun findDayName(year: Int, month: Int, dayOfMonth: Int): JDay {
+        val date = getGivenDate(year, month, dayOfMonth)
+        return JDay.entries[date.dayOfWeek.ordinal]
+    }
+
+    override fun findTimeInMinute(hour: Int, minute: Int): Int {
+        return hour * 60 + minute
+    }
+
+    private fun getGivenDate(year: Int, month: Int, dayOfMonth: Int): LocalDate {
+        return LocalDate.of(year, month + 1, dayOfMonth)
     }
 }

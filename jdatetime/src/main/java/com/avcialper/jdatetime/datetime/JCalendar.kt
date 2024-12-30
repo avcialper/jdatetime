@@ -13,6 +13,9 @@ import java.util.Locale
 
 class JCalendar : JDateTime() {
 
+    private val throwMessage =
+        "This operation requires API level 26 or higher. Please use other methods."
+
     private val calendar: Calendar
         get() = Calendar.getInstance()
 
@@ -76,8 +79,6 @@ class JCalendar : JDateTime() {
     override val isLeapYear: Boolean
         get() = super.isLeapYear(year)
 
-    private fun useCalendarGet(property: Int): Int = calendar.get(property)
-
     override fun getAllDaysOfMonth(year: Int, month: Int): List<JDayOfMonth> {
         val calendar = Calendar.getInstance()
         calendar.clear()
@@ -136,7 +137,7 @@ class JCalendar : JDateTime() {
     }
 
     override fun format(formatter: DateTimeFormatter): String {
-        throw UnsupportedOperationException("This operation requires API level 26 or higher.")
+        throw UnsupportedOperationException(throwMessage)
     }
 
     override fun format(formatter: SimpleDateFormat): String {
@@ -144,7 +145,7 @@ class JCalendar : JDateTime() {
     }
 
     override fun formatDate(formatter: DateTimeFormatter, date: LocalDate): String {
-        throw UnsupportedOperationException("This operation requires API level 26 or higher.")
+        throw UnsupportedOperationException(throwMessage)
     }
 
     override fun formatDate(formatter: SimpleDateFormat, date: Calendar): String {
@@ -152,7 +153,7 @@ class JCalendar : JDateTime() {
     }
 
     override fun formatTime(formatter: DateTimeFormatter): String {
-        throw UnsupportedOperationException("This operation requires API level 26 or higher.")
+        throw UnsupportedOperationException(throwMessage)
     }
 
     override fun formatTime(formatter: SimpleDateFormat): String {
@@ -160,7 +161,7 @@ class JCalendar : JDateTime() {
     }
 
     override fun findDateDifference(fromDate: LocalDate, toDate: LocalDate): JDateDifference {
-        throw UnsupportedOperationException("This operation requires API level 26 or higher.")
+        throw UnsupportedOperationException(throwMessage)
     }
 
     override fun findDateDifference(fromDate: Calendar, toDate: Calendar): JDateDifference {
@@ -187,7 +188,7 @@ class JCalendar : JDateTime() {
     }
 
     override fun findDayDifference(fromDate: LocalDate, toDate: LocalDate): Long {
-        throw UnsupportedOperationException("This operation requires API level 26 or higher.")
+        throw UnsupportedOperationException(throwMessage)
     }
 
     override fun findDayDifference(fromDate: Calendar, toDate: Calendar): Long {
@@ -204,4 +205,37 @@ class JCalendar : JDateTime() {
         calendar.set(year, month, 1)
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
     }
+
+    override fun findEpochDay(year: Int, month: Int, dayOfMonth: Int): Long {
+        val calendar = getGivenDate(year, month, day)
+        return calendar.timeInMillis / (24 * 60 * 60 * 1000)
+    }
+
+    override fun findDayOfWeek(year: Int, month: Int, dayOfMonth: Int): Int {
+        val calendar = getGivenDate(year, month, day)
+        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 2
+        return if (dayOfWeek < 0) 6 else dayOfWeek
+    }
+
+    override fun findDayOfYear(year: Int, month: Int, dayOfMonth: Int): Int {
+        val calendar = getGivenDate(year, month, dayOfMonth)
+        return calendar.get(Calendar.DAY_OF_YEAR)
+    }
+
+    override fun findDayName(year: Int, month: Int, dayOfMonth: Int): JDay {
+        val dayOfWeek = findDayOfWeek(year, month, dayOfMonth)
+        return JDay.entries[dayOfWeek]
+    }
+
+    private fun getGivenDate(year: Int, month: Int, dayOfMonth: Int): Calendar {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, dayOfMonth)
+        return calendar
+    }
+
+    override fun findTimeInMinute(hour: Int, minute: Int): Int {
+        return hour * 60 + minute
+    }
+
+    private fun useCalendarGet(property: Int): Int = calendar.get(property)
 }
