@@ -34,10 +34,10 @@ abstract class JDateTime {
 
     }
 
-    /** Current date as a string in the format "dd.MM.yyyy" */
+    /** Current date as a string in the format `dd.MM.yyyy` */
     abstract val date: String
 
-    /** Current time as a string in the format "HH:mm:ss" */
+    /** Current time as a string in the format `HH:mm:ss` */
     abstract val time: String
 
     /** Current year */
@@ -46,7 +46,7 @@ abstract class JDateTime {
     /** Current month (0 for January to 11 for December) */
     abstract val month: Int
 
-    /** Current day of the month, starting from 1 */
+    /** Current day of the month, starting from `1` */
     abstract val day: Int
 
     /** Current hour of the day */
@@ -58,10 +58,10 @@ abstract class JDateTime {
     /** Current second */
     abstract val second: Int
 
-    /** Number of days since January 1, 1970 */
+    /** Number of days since `January 1, 1970` */
     abstract val epochDay: Long
 
-    /** Time of day in seconds */
+    /** Time of day in seconds, from `0` to `24 * 60 * 60 - 1` */
     abstract val timeInSecond: Int
 
     /** Current day of the week (0 for Monday to 6 for Sunday) */

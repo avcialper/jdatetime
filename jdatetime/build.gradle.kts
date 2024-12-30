@@ -48,7 +48,7 @@ publishing {
             afterEvaluate {
                 groupId = "com.github.avcialper"
                 artifactId = "jdatetime"
-                version = "1.0.0"
+                version = "1.1.0"
                 from(components["release"])
             }
         }
