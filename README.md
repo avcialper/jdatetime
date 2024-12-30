@@ -28,7 +28,7 @@ Later, add this implementation build.gradle.kts (Module:app)
 ```gradle
 dependencies {
     ..
-    implementation("com.github.avcialper:jdatetime:1.0.0")
+    implementation("com.github.avcialper:jdatetime:${jdatetime_version}")
 }
 ```
 
@@ -43,7 +43,7 @@ dependencies {
 
 ```toml
 [versions]
-jdatetime = "1.0.0"
+jdatetime = "jdatetime_version"
 
 [libraries]
 jdatetime = { module = "com.github.avcialper:jdatetime", version.ref = "jdatetime" }
