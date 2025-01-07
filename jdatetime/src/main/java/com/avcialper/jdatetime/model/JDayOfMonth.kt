@@ -8,7 +8,7 @@ data class JDayOfMonth(
     /**
      * Day of the month. Start day `1`.
      */
-    val day: Int,
+    val dayOfMonth: Int,
     /**
      * Name of the day of the week.
      */
