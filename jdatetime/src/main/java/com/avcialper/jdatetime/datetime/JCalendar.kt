@@ -20,7 +20,7 @@ class JCalendar : JDateTime() {
         get() = Calendar.getInstance()
 
     override val date: String
-        get() = "$year.${month + 1}.$day"
+        get() = "$year.${month + 1}.$dayOfMonth"
 
     override val time: String
         get() = "$hour:$minute:$second"
@@ -31,7 +31,7 @@ class JCalendar : JDateTime() {
     override val month: Int
         get() = useCalendarGet(Calendar.MONTH)
 
-    override val day: Int
+    override val dayOfMonth: Int
         get() = useCalendarGet(Calendar.DAY_OF_YEAR)
 
     override val hour: Int
@@ -57,9 +57,6 @@ class JCalendar : JDateTime() {
             else
                 calendarDayOfWeek
         }
-
-    override val dayOfMonth: Int
-        get() = day
 
     override val dayOfYear: Int
         get() = useCalendarGet(Calendar.DAY_OF_YEAR)
@@ -207,12 +204,12 @@ class JCalendar : JDateTime() {
     }
 
     override fun findEpochDay(year: Int, month: Int, dayOfMonth: Int): Long {
-        val calendar = getGivenDate(year, month, day)
+        val calendar = getGivenDate(year, month, dayOfMonth)
         return calendar.timeInMillis / (24 * 60 * 60 * 1000)
     }
 
     override fun findDayOfWeek(year: Int, month: Int, dayOfMonth: Int): Int {
-        val calendar = getGivenDate(year, month, day)
+        val calendar = getGivenDate(year, month, dayOfMonth)
         val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 2
         return if (dayOfWeek < 0) 6 else dayOfWeek
     }

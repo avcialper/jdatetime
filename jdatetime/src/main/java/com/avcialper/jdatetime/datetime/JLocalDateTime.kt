@@ -37,7 +37,7 @@ class JLocalDateTime : JDateTime() {
     override val month: Int
         get() = localDateTime.month.ordinal
 
-    override val day: Int
+    override val dayOfMonth: Int
         get() = localDateTime.dayOfMonth
 
     override val hour: Int
@@ -57,9 +57,6 @@ class JLocalDateTime : JDateTime() {
 
     override val dayOfWeek: Int
         get() = localDateTime.dayOfWeek.ordinal
-
-    override val dayOfMonth: Int
-        get() = localDateTime.dayOfMonth
 
     override val dayOfYear: Int
         get() = localDateTime.dayOfYear

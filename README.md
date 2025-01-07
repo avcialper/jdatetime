@@ -53,18 +53,18 @@ jdatetime = { module = "com.github.avcialper:jdatetime", version.ref = "jdatetim
 | Name | Description | Return |
 | --- | --- | --- |
 | instance | Gets the instance of JDateTime. | `JDateTime` |
+| isDeviceEqualOrHigherO | Determines if the device's API level is Android 8 (API 26) or higher | `Boolean` |
 | date | Current date as a string in the format `dd.MM.yyyy`. | `String` |
 | time | Current time as a string in the format `HH:mm:ss`. | `String` |
 | year | Current year | `Int` |
 | month | Current month (0 for January to 11 for December)| `Int` |
-| day | Current day of the month, starting from `1` | `Int` |
+| dayOfMonth | Current day of the month, starting from `1` | `Int` |
 | hour | Current hour of the day | `Int` |
 | minute | Current minute | `Int` |
 | second | Current seocond | `Int` |
 | epochDay | Number of days since `January 1, 1970`. | `Long` |
 | timeInSecond | Time of day in a second, from `0` to `24 * 60 * 60 - 1`. | `Int` |
 | dayOfWeek | Current day of the week (0 for Monday to 6 for Sunday) | `Int` |
-| dayOfMonth | Current day of the month, starting from `1` | `Int` |
 | dayOfYear | Current day of the year, starting from `1` | `Int` |
 | dayName | Current day name as `JDay` enum | `JDay` |
 | weekOfMonth | Week of the month | `Int` |
@@ -91,5 +91,5 @@ jdatetime = { module = "com.github.avcialper:jdatetime", version.ref = "jdatetim
 | findDayOfWeek | Determines the day of the week for a given date | `year` - year of the date <br> `month` - month (0 for January to 11 for December) <br> `dayOfMonth` - day of the month (1 - 31) | `Int` |
 | findDayOfYear | Determines the day of the year for a given date | `year` - year of the date <br> `month` - month (0 for January to 11 for December) <br> `dayOfMonth` - day of the month (1 - 31) | `Int` |
 | findDayName | Determines the day name of a given date as `JDay` | `year` - year of the date <br> `month` - month (0 for January to 11 for December) <br> `dayOfMonth` - day of the month (1 - 31) | `JDay` |
-| findTimeInMinute | Converts a given time to total minutes | `hour` - hour component of the time <br> `minute` - minute componnet of the time | `Int` |
+| findTimeInMinute | Converts a given time to total minutes | `hour` - hour component of the time <br> `minute` - minute component of the time | `Int` |
 | isLeapYear | Determines if a given year is a leap year | `year` - year to checked | `Boolean` |

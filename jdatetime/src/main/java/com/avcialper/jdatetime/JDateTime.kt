@@ -47,7 +47,7 @@ abstract class JDateTime {
     abstract val month: Int
 
     /** Current day of the month, starting from `1` */
-    abstract val day: Int
+    abstract val dayOfMonth: Int
 
     /** Current hour of the day */
     abstract val hour: Int
@@ -66,9 +66,6 @@ abstract class JDateTime {
 
     /** Current day of the week (0 for Monday to 6 for Sunday) */
     abstract val dayOfWeek: Int
-
-    /** Current day of the month */
-    abstract val dayOfMonth: Int
 
     /** Current day of the year */
     abstract val dayOfYear: Int
