@@ -1,5 +1,7 @@
 package com.avcialper.jdatetime.model
 
+import com.avcialper.jdatetime.JDateTime
+
 data class JDayOfMonth(
     /**
      * Date as a string in the format `dd.MM.yyyy`.
@@ -28,8 +30,9 @@ data class JDayOfMonth(
 ) {
     /**
      * Checks if the date is today.
-     * @param otherDate The date to compare with.
      */
-    fun isToday(otherDate: JDayOfMonth) = this == otherDate
+    fun isToday(): Boolean {
+        return date == JDateTime.instance.date
+    }
 
 }
