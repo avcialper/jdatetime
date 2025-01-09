@@ -18,20 +18,18 @@ data class JDayOfMonth(
      */
     val dayOfWeek: Int,
     /**
-     * The week number within the month.
-     *
-     * This value is determined based on the first day of the week and the minimum number of days required
-     * to count as the first week, according to the device's locale settings.
-     * - The start of the week depends on the locale. For example:
-     *   In Turkey, the first day of the week is typically Monday.
-     * - The minimum number of days required to define the first week also depends on the locale (commonly 4 days).
-     *
-     * Example:
-     * - If the first day of the month is Monday, it belongs to the 1st week.
-     * - If the first day of the month is Thursday and at least 4 days are required for a valid week,
-     *   it may fall into the 2nd week.
+     * Month of the year. Start month `0`.
      */
-    val weekOfMonth: Int
+    val month: Int,
+    /**
+     * Year field.
+     */
+    val year: Int
 ) {
+    /**
+     * Checks if the date is today.
+     * @param otherDate The date to compare with.
+     */
+    fun isToday(otherDate: JDayOfMonth) = this == otherDate
 
 }

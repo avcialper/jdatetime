@@ -90,7 +90,6 @@ class JCalendar : JDateTime() {
         var dayOfMonth: Int
         var dayOfWeek: Int
         var dayName: String
-        var weekOfMonth: Int
 
         val maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
         for (day in 2..maxDay + 1) {
@@ -116,14 +115,14 @@ class JCalendar : JDateTime() {
             dayOfWeek = if (calendarDayOfWeek == -1) 6 else calendarDayOfWeek
             dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
             dayName = JDay.entries[dayOfWeek].name
-            weekOfMonth = calendar.get(Calendar.WEEK_OF_MONTH)
 
             val jDayOfMonth = JDayOfMonth(
                 date,
                 dayOfMonth,
                 dayName,
                 dayOfWeek,
-                weekOfMonth
+                month,
+                year
             )
             days.add(jDayOfMonth)
 

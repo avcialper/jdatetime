@@ -86,22 +86,21 @@ class JLocalDateTime : JDateTime() {
         var dayOfMonth: Int
         var dayOfWeek: Int
         var dayName: String
-        var weekOfMonth: Int
 
         var currentDay = firstDay
-        while (lastDay.isAfter(currentDay)) {
+        while (!currentDay.isAfter(lastDay)) {
             date = currentDay.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
             dayOfMonth = currentDay.dayOfMonth
             dayOfWeek = currentDay.dayOfWeek.value - 1
             dayName = JDay.entries[dayOfWeek].name
-            weekOfMonth = currentDay.get(WeekFields.of(Locale.getDefault()).weekOfMonth())
 
             val jDayOfMonth = JDayOfMonth(
                 date,
                 dayOfMonth,
                 dayName,
                 dayOfWeek,
-                weekOfMonth
+                month,
+                year
             )
             days.add(jDayOfMonth)
 
