@@ -20,7 +20,11 @@ class JCalendar : JDateTime() {
         get() = Calendar.getInstance()
 
     override val date: String
-        get() = "$year.${month + 1}.$dayOfMonth"
+        get() {
+            val dayOfMonth = if (dayOfMonth < 10) "0$dayOfMonth" else "$dayOfMonth"
+            val month = if (month + 1 < 10) "0${month + 1}" else "${month + 1}"
+            return "$dayOfMonth.$month.$year"
+        }
 
     override val time: String
         get() = "$hour:$minute:$second"
