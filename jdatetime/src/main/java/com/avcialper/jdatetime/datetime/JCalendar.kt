@@ -32,7 +32,7 @@ class JCalendar : JDateTime() {
         get() = useCalendarGet(Calendar.MONTH)
 
     override val dayOfMonth: Int
-        get() = useCalendarGet(Calendar.DAY_OF_YEAR)
+        get() = useCalendarGet(Calendar.DAY_OF_MONTH)
 
     override val hour: Int
         get() = useCalendarGet(Calendar.HOUR_OF_DAY)
