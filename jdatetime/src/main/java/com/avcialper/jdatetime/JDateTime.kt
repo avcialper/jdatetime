@@ -7,6 +7,7 @@ import com.avcialper.jdatetime.datetime.JCalendar
 import com.avcialper.jdatetime.datetime.JLocalDateTime
 import com.avcialper.jdatetime.model.JDate
 import com.avcialper.jdatetime.model.JDateDifference
+import com.avcialper.jdatetime.model.JTime
 import com.avcialper.jdatetime.util.JDay
 import com.avcialper.jdatetime.util.JMonth
 import java.time.LocalDate
@@ -87,6 +88,9 @@ abstract class JDateTime {
 
     /** Current date as a [JDate] object. */
     abstract val jDate: JDate
+
+    /** Current time as a [JTime] object. */
+    abstract val jTime: JTime
 
     /**
      * Returns all days of the given month as a list of [JDate].

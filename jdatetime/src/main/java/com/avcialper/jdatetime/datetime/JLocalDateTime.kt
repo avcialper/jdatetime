@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import com.avcialper.jdatetime.JDateTime
 import com.avcialper.jdatetime.model.JDate
 import com.avcialper.jdatetime.model.JDateDifference
+import com.avcialper.jdatetime.model.JTime
 import com.avcialper.jdatetime.util.JDay
 import com.avcialper.jdatetime.util.JMonth
 import java.time.LocalDate
@@ -78,6 +79,9 @@ class JLocalDateTime : JDateTime() {
 
     override val jDate: JDate
         get() = JDate(date, dayOfMonth, dayName.name, dayOfWeek, month, year)
+
+    override val jTime: JTime
+        get() = JTime(time, hour, minute, second)
 
     override fun getAllDaysOfMonth(year: Int, month: Int): List<JDate> {
         val days: MutableList<JDate> = mutableListOf()
