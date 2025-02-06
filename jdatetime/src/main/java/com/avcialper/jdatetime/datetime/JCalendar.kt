@@ -2,8 +2,8 @@ package com.avcialper.jdatetime.datetime
 
 import android.icu.text.SimpleDateFormat
 import com.avcialper.jdatetime.JDateTime
+import com.avcialper.jdatetime.model.JDate
 import com.avcialper.jdatetime.model.JDateDifference
-import com.avcialper.jdatetime.model.JDayOfMonth
 import com.avcialper.jdatetime.util.JDay
 import com.avcialper.jdatetime.util.JMonth
 import java.time.LocalDate
@@ -80,11 +80,14 @@ class JCalendar : JDateTime() {
     override val isLeapYear: Boolean
         get() = super.isLeapYear(year)
 
-    override fun getAllDaysOfMonth(year: Int, month: Int): List<JDayOfMonth> {
+    override val jDate: JDate
+        get() = JDate(date, dayOfMonth, dayName.name, dayOfWeek, month, year)
+
+    override fun getAllDaysOfMonth(year: Int, month: Int): List<JDate> {
         val calendar = Calendar.getInstance()
         calendar.clear()
 
-        val days: MutableList<JDayOfMonth> = mutableListOf()
+        val days: MutableList<JDate> = mutableListOf()
 
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month)
@@ -120,7 +123,7 @@ class JCalendar : JDateTime() {
             dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
             dayName = JDay.entries[dayOfWeek].name
 
-            val jDayOfMonth = JDayOfMonth(
+            val jDate = JDate(
                 date,
                 dayOfMonth,
                 dayName,
@@ -128,7 +131,7 @@ class JCalendar : JDateTime() {
                 month,
                 year
             )
-            days.add(jDayOfMonth)
+            days.add(jDate)
 
             calendar.set(Calendar.DAY_OF_MONTH, day)
         }

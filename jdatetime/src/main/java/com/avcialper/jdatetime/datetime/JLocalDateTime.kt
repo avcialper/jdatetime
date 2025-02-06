@@ -4,8 +4,8 @@ import android.icu.text.SimpleDateFormat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.avcialper.jdatetime.JDateTime
+import com.avcialper.jdatetime.model.JDate
 import com.avcialper.jdatetime.model.JDateDifference
-import com.avcialper.jdatetime.model.JDayOfMonth
 import com.avcialper.jdatetime.util.JDay
 import com.avcialper.jdatetime.util.JMonth
 import java.time.LocalDate
@@ -76,8 +76,11 @@ class JLocalDateTime : JDateTime() {
     override val isLeapYear: Boolean
         get() = super.isLeapYear(year)
 
-    override fun getAllDaysOfMonth(year: Int, month: Int): List<JDayOfMonth> {
-        val days: MutableList<JDayOfMonth> = mutableListOf()
+    override val jDate: JDate
+        get() = JDate(date, dayOfMonth, dayName.name, dayOfWeek, month, year)
+
+    override fun getAllDaysOfMonth(year: Int, month: Int): List<JDate> {
+        val days: MutableList<JDate> = mutableListOf()
 
         val firstDay = LocalDate.of(year, month + 1, 1)
         val lastDay = firstDay.withDayOfMonth(firstDay.lengthOfMonth())
@@ -94,7 +97,7 @@ class JLocalDateTime : JDateTime() {
             dayOfWeek = currentDay.dayOfWeek.value - 1
             dayName = JDay.entries[dayOfWeek].name
 
-            val jDayOfMonth = JDayOfMonth(
+            val jDate = JDate(
                 date,
                 dayOfMonth,
                 dayName,
@@ -102,7 +105,7 @@ class JLocalDateTime : JDateTime() {
                 month,
                 year
             )
-            days.add(jDayOfMonth)
+            days.add(jDate)
 
             currentDay = currentDay.plusDays(1)
         }

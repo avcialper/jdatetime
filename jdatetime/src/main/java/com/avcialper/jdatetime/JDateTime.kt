@@ -5,8 +5,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.avcialper.jdatetime.datetime.JCalendar
 import com.avcialper.jdatetime.datetime.JLocalDateTime
+import com.avcialper.jdatetime.model.JDate
 import com.avcialper.jdatetime.model.JDateDifference
-import com.avcialper.jdatetime.model.JDayOfMonth
 import com.avcialper.jdatetime.util.JDay
 import com.avcialper.jdatetime.util.JMonth
 import java.time.LocalDate
@@ -85,12 +85,15 @@ abstract class JDateTime {
     /** True if the current year is a leap year */
     abstract val isLeapYear: Boolean
 
+    /** Current date as a [JDate] object. */
+    abstract val jDate: JDate
+
     /**
-     * Returns all days of the given month as a list of [JDayOfMonth].
+     * Returns all days of the given month as a list of [JDate].
      * @param year Desired year
      * @param month Month of the year (0 for January to 11 for December)
      */
-    abstract fun getAllDaysOfMonth(year: Int, month: Int): List<JDayOfMonth>
+    abstract fun getAllDaysOfMonth(year: Int, month: Int): List<JDate>
 
     /**
      * Formats the current date using a [DateTimeFormatter].
