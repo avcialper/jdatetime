@@ -71,6 +71,8 @@ jdatetime = { module = "com.github.avcialper:jdatetime", version.ref = "jdatetim
 | weekOfYear | Week of the year | `Int` |
 | monthName | Month name as `JMonth` enum | `JMonth` |
 | isLeapYear | True if the current year is a leap year | `Boolean` |
+| jDate | Current date as a `JDate` object. | `JDate` |
+| jTime | Current time as a `JTime` object. | `JTime` |
 
 # Functions
 | Name | Description | Params | Return |
